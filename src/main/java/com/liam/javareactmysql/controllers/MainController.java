@@ -1,14 +1,17 @@
 package com.liam.javareactmysql.controllers;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +21,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.liam.javareactmysql.models.LoginUser;
 import com.liam.javareactmysql.models.User;
+import com.liam.javareactmysql.services.FileService;
 import com.liam.javareactmysql.services.PhotoService;
 import com.liam.javareactmysql.services.UserService;
 
@@ -36,6 +42,11 @@ public class MainController {
 	
 	@Autowired
 	private PhotoService photoServ;
+	
+	@Autowired
+	private FileService fileServ;
+	
+	private String IMAGE_FOLDER="src/main/resources/static/imgs/";
 
 	
 	
@@ -44,10 +55,40 @@ public class MainController {
 		return photoServ.getAll();
 	}
 	
-	@PutMapping("/createPhoto")
-	public Photo create(@RequestBody Photo photo) {
-		return photoServ.createOne(photo);
+	@PostMapping("/createPhoto")
+	public Photo create(@Valid @ModelAttribute("photo") Photo photo, BindingResult result, @RequestParam("file") MultipartFile file) {
+		if(result.hasErrors()) {
+			throw new ResponseStatusException(
+	    			   HttpStatus.NOT_FOUND, "entity not found"
+	    			 );
+		}
+		else {
+			try {
+
+				try (FileOutputStream output = new FileOutputStream(IMAGE_FOLDER + file.getOriginalFilename())) {
+					output.write(file.getBytes());
+				}
+				photo.setImgURL("/imgs/" + file.getOriginalFilename());
+				
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+		
+			
+			return photoServ.createOne(photo);
+
+		}
+		
 	}
+	
+	@GetMapping("/files/{filename:.+}")
+	  @ResponseBody
+	  public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+	    Resource file = fileServ.load(filename);
+	    return ResponseEntity.ok()
+	        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+	  }
 	
 	
 	
@@ -65,7 +106,7 @@ public class MainController {
 	   
 	   // Create User Process
 	   @PostMapping("/registerUser")
-	   public ResponseEntity<User> registerUser(@Valid @RequestBody User newUser, BindingResult result, Model model, HttpSession session) {
+	   public ResponseEntity<User> registerUser(@Valid @RequestBody User newUser, BindingResult result, HttpSession session) {
 	   	userServ.register(newUser, result);
 	       if(result.hasErrors()) {
 	    	   throw new ResponseStatusException(

@@ -48,16 +48,16 @@ public class FileService {
 	    }
 	  }
 
-	  public void deleteAll() {
-	    FileSystemUtils.deleteRecursively(root.toFile());
-	  }
-
-	  public Stream<Path> loadAll() {
-	    try {
-	      return Files.walk(this.root, 1).filter(path -> !path.equals(this.root)).map(this.root::relativize);
-	    } catch (IOException e) {
-	      throw new RuntimeException("Could not load the files!");
-	    }
-	  }
+//	  public void deleteAll() {
+//	    FileSystemUtils.deleteRecursively(root.toFile());
+//	  }
+//
+//	  public Stream<Path> loadAll() {
+//	    try {
+//	      return Files.walk(this.root, 1).filter(path -> !path.equals(this.root)).map(this.root::relativize);
+//	    } catch (IOException e) {
+//	      throw new RuntimeException("Could not load the files!");
+//	    }
+//	  }
 
 }
