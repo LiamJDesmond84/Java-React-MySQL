@@ -46,7 +46,7 @@ public class MainController {
 	@Autowired
 	private FileService fileServ;
 	
-	private String IMAGE_FOLDER="src/main/resources/static/imgs/";
+	private String IMAGE_FOLDER="src/main/client/src/imgs/";
 
 	
 	
@@ -56,7 +56,7 @@ public class MainController {
 	}
 	
 	@PostMapping("/createPhoto")
-	public Photo create(@Valid @ModelAttribute("photo") Photo photo, BindingResult result, @RequestParam("file") MultipartFile file) {
+	public Photo create(@Valid @ModelAttribute Photo photo, BindingResult result, @RequestParam("file") MultipartFile file) {
 		if(result.hasErrors()) {
 			throw new ResponseStatusException(
 	    			   HttpStatus.NOT_FOUND, "entity not found"
@@ -82,13 +82,13 @@ public class MainController {
 		
 	}
 	
-	@GetMapping("/files/{filename:.+}")
-	  @ResponseBody
-	  public ResponseEntity<Resource> getFile(@PathVariable String filename) {
-	    Resource file = fileServ.load(filename);
-	    return ResponseEntity.ok()
-	        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-	  }
+//	@GetMapping("/files/{filename:.+}")
+//	  @ResponseBody
+//	  public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+//	    Resource file = fileServ.load(filename);
+//	    return ResponseEntity.ok()
+//	        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+//	  }
 	
 	
 	
