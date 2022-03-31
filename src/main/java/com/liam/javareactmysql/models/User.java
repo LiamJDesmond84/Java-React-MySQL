@@ -1,12 +1,16 @@
 package com.liam.javareactmysql.models;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -16,6 +20,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.liam.javareactmysql.controllers.Photo;
 
 @Entity
 @Table(name="users")
@@ -62,6 +68,14 @@ public class User {
 	protected void onUpdate() {
 		this.updatedAt = new Date();
 	}
+	
+	
+	// One to Many
+	@OneToMany(mappedBy="owner", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private List<Photo> cars;
+	
+
+
 
 	public Long getId() {
 		return id;
@@ -125,6 +139,14 @@ public class User {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+	
+	public List<Photo> getCars() {
+		return cars;
+	}
+
+	public void setCars(List<Photo> cars) {
+		this.cars = cars;
 	}
 	
 	
