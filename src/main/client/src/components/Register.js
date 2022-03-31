@@ -21,7 +21,7 @@ const Register = () => {
             setPasserror("Password & Confirm Password must match");
         }
         else {
-        axios.post("http://localhost:8000/api/registerUser", {firstName, lastName, email, password})
+        axios.post("http://localhost:8080/api/registerUser", {firstName, lastName, email, password})
             .then((res) => {
                 console.log(res);
                 setFirstName("");

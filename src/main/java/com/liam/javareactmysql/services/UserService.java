@@ -31,21 +31,35 @@ public class UserService {
 	}
 	
 	// Create One
-	public User register(User newUser, BindingResult result) {
-        if(userRepo.findByEmail(newUser.getEmail()).isPresent()) {
-            result.rejectValue("email", "Unique", "This email is already in use!");
-        }
-        if(!newUser.getPassword().equals(newUser.getConfirmPassword())) {
-            result.rejectValue("confirmPassword", "Matches", "The Confirm Password must match Password!");
-        }
-        if(result.hasErrors()) {
-            return null;
-        } else {
-            String hashed = BCrypt.hashpw(newUser.getPassword(), BCrypt.gensalt());
-            newUser.setPassword(hashed);
-            return userRepo.save(newUser);
-        }
-    }
+	public User createUser(User newUser, BindingResult result) {
+		if(userRepo.findByEmail(newUser.getEmail()).isPresent()) {
+          result.rejectValue("email", "Unique", "This email is already in use!");
+		}
+		if(result.hasErrors()) {
+          return null;
+      } else {
+          String hashed = BCrypt.hashpw(newUser.getPassword(), BCrypt.gensalt());
+          newUser.setPassword(hashed);
+          return userRepo.save(newUser);
+      }
+	}
+	
+//	// Register
+//	public User register(User newUser, BindingResult result) {
+//        if(userRepo.findByEmail(newUser.getEmail()).isPresent()) {
+//            result.rejectValue("email", "Unique", "This email is already in use!");
+//        }
+//        if(!newUser.getPassword().equals(newUser.getConfirmPassword())) {
+//            result.rejectValue("confirmPassword", "Matches", "The Confirm Password must match Password!");
+//        }
+//        if(result.hasErrors()) {
+//            return null;
+//        } else {
+//            String hashed = BCrypt.hashpw(newUser.getPassword(), BCrypt.gensalt());
+//            newUser.setPassword(hashed);
+//            return userRepo.save(newUser);
+//        }
+//    }
     
 	// Login
     public User login(LoginUser newLogin, BindingResult result) {

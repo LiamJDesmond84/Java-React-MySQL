@@ -7,6 +7,8 @@ const Dashboard = () => {
     const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
     const [photos, setPhotos] = useState([])
 
+
+
     useEffect(() => {
         axios.get("http://localhost:8080/api/allPhotos")
             .then((response) => {
@@ -26,13 +28,15 @@ const Dashboard = () => {
     return (
         <div>
         {photos.map((x,i) => {
+            const imgPath = x.imgURL
             return (
             <div key={i}>
-                
+                    
                     <div className="post">
                     <div className="title"> {x.title} </div>
                     <div className="body">{x.description}</div>
-                    <img src={`..${x.imgURL}`} alt=""></img>
+                    {/* <Image source={x.imgURL} /> */}
+                    <img src={require(imgPath)} alt="" />
                     <Link to={`/photos/${x.id}`}>Details</Link>
                     <Link to={`/photos/edit/${x.id}`}>Edit</Link>
                     <button onClick={(e)=>{deletePost(x.id)}}>Delete</button>

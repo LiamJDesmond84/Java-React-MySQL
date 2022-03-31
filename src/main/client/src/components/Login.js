@@ -16,7 +16,7 @@ const Login = () => {
     const loginUser = (e) => {
         e.preventDefault();
 
-        axios.post("http://localhost:8000/api/loginUser", {email, password})
+        axios.post("http://localhost:8080/api/loginUser", {email, password})
             .then((res) => {
                 console.log(res);
                 // console.log("test");

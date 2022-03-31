@@ -107,14 +107,15 @@ public class MainController {
 	   // Create User Process
 	   @PostMapping("/registerUser")
 	   public ResponseEntity<User> registerUser(@Valid @RequestBody User newUser, BindingResult result, HttpSession session) {
-	   	userServ.register(newUser, result);
-	       if(result.hasErrors()) {
-	    	   throw new ResponseStatusException(
-	    			   HttpStatus.NOT_FOUND, "entity not found"
-	    			 );
-	       }
-	       session.setAttribute("user_id", newUser.getId());
-	       return new ResponseEntity<>(HttpStatus.CREATED);
+//	   	userServ.register(newUser, result);
+	   	userServ.createUser(newUser, result);
+//	       if(result.hasErrors()) {
+//	    	   throw new ResponseStatusException(
+//	    			   HttpStatus.NOT_FOUND, "entity not found"
+//	    			 );
+//	       }
+//	       session.setAttribute("user_id", newUser.getId());
+	       return new ResponseEntity<User>(newUser, HttpStatus.OK);
 	   }
 	   
 //	   // Login User Process
