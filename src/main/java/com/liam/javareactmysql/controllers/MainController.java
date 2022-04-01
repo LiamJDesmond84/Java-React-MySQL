@@ -67,9 +67,10 @@ public class MainController {
 		photoServ.deleteOne(id);
 	}
 	
+//	@PutMapping("/updatePhoto/{id}")
 	@PutMapping("/updatePhoto/{id}")
-	public Photo updateOne(@PathVariable("id") Long id) {
-		Photo photo =  photoServ.getOne(id);
+	public Photo updateOne(@RequestBody Photo photo) {
+//		Photo photo =  photoServ.getOne(id);
 		return photoServ.updateOne(photo);
 	}
 	
