@@ -13,6 +13,10 @@ const NewPhoto = () => {
 
 
     const createPost = (e) => {
+        console.log(title);
+        console.log(description);
+        console.log(imgURL);
+        console.log(imgURL);
         e.preventDefault();
         axios.post("http://localhost:8080/api/createPhoto", {title, description, imgURL})
             .then((res) => {

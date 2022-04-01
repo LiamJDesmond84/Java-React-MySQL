@@ -12,7 +12,7 @@ function App() {
 		<Link to="/dashboard">Home</Link>
 		<Link to="/">Login</Link>
 		<Link to="/register">Register</Link>
-		<Link to="/newPost">Add a Post</Link>
+		<Link to="/newphoto">Add a Photo</Link>
 		</div>
     <div className="App">
 

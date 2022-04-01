@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -72,7 +72,7 @@ public class User {
 	
 	// One to Many
 	@OneToMany(mappedBy="owner", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	private List<Photo> cars;
+	private List<Photo> photo;
 	
 
 
@@ -117,13 +117,7 @@ public class User {
 		this.password = password;
 	}
 
-//	public String getConfirmPassword() {
-//		return confirmPassword;
-//	}
-//
-//	public void setConfirmPassword(String confirmPassword) {
-//		this.confirmPassword = confirmPassword;
-//	}
+
 
 	public Date getCreatedAt() {
 		return createdAt;
@@ -140,14 +134,16 @@ public class User {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
-	public List<Photo> getCars() {
-		return cars;
+
+	public List<Photo> getPhoto() {
+		return photo;
 	}
 
-	public void setCars(List<Photo> cars) {
-		this.cars = cars;
+	public void setPhoto(List<Photo> photo) {
+		this.photo = photo;
 	}
+	
+
 	
 	
 	
