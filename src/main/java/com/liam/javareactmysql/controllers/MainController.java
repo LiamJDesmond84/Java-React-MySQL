@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -55,6 +55,24 @@ public class MainController {
 	public List<Photo> getAll() {
 		return photoServ.getAll();
 	}
+	
+	
+	@GetMapping("/getPhoto/{id}")
+	public Photo getOne(@PathVariable("id") Long id) {
+		return photoServ.getOne(id);
+	}
+	
+	@GetMapping("/deletePhoto/{id}")
+	public void deleteOne(@PathVariable("id") Long id) {
+		photoServ.deleteOne(id);
+	}
+	
+	@PutMapping("/updatePhoto/{id}")
+	public Photo updateOne(@PathVariable("id") Long id) {
+		Photo photo =  photoServ.getOne(id);
+		return photoServ.updateOne(photo);
+	}
+	
 	
 	@PostMapping("/createPhoto")
 	public ResponseEntity<Photo> create(@Valid @RequestBody Photo photo, BindingResult result) {
