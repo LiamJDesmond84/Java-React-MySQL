@@ -3,6 +3,7 @@ import './App.css';
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import NewPhoto from "./components/NewPhoto";
+import { PhotoDetails } from "./components/PhotoDetails";
 import Register from "./components/Register";
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
                     {/* <Route path="/posts/edit/:id" element={<UpdatePost />} /> */}
 
                     <Route path="/newphoto" element={<NewPhoto />} />
-					{/* <Route path="/posts/:id" element={<PostDetails />} /> */}
+					<Route path="/posts/:id" element={<PhotoDetails />} />
         </Routes>
     </div>
 	</Router>
