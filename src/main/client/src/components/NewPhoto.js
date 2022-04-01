@@ -11,9 +11,10 @@ const NewPhoto = () => {
     const [imgURL, setImgURL] = useState("")
 
 
+
     const createPost = (e) => {
         e.preventDefault();
-        axios.post("http://localhost:8000/api/posts", {title, description, imgURL})
+        axios.post("http://localhost:8080/api/createPhoto", {title, description, imgURL})
             .then((res) => {
                 console.log(res);
                 setTitle("");
@@ -34,7 +35,7 @@ const NewPhoto = () => {
 
             <div className="modern-form">
     
-                <form onSubmit={createPost}>
+                <form onSubmit={createPost} method='POST' encType='multipart/form-data' action="..">
                 <h4>Add a Post</h4>
                 <label>Title</label>
                 <fieldset className='float-label-field'>
@@ -54,9 +55,9 @@ const NewPhoto = () => {
                         :null
                     }
                 </fieldset>
-                <label>UserName</label>
+                <label>Photo</label>
                 <fieldset className='float-label-field'>
-                    <input id="txtName" type="file" name="file" value={imgURL} onChange={(e) => setImgURL(e.target.value)} />
+                    <input id="txtName" type="text" name="imgURL" value={imgURL} onChange={(e) => setImgURL(e.target.value)} />
                     {
                         errors.path === "imgURL"?
                         <p>{errors.message}</p>

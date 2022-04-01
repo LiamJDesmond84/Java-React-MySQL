@@ -37,7 +37,7 @@ public class Photo {
 	private String description;
 	
 	@NotBlank(message="Photo is required!")
-	private String imgURL = "";
+	private String imgURL;
 	
 
 
@@ -92,13 +92,13 @@ public class Photo {
 
 
 
-	public String getImgURL() {
-		return imgURL;
-	}
-
-	public void setImgURL(String imgURL) {
-		this.imgURL = imgURL;
-	}
+//	public String getImgURL() {
+//		return imgURL;
+//	}
+//
+//	public void setImgURL(String imgURL) {
+//		this.imgURL = imgURL;
+//	}
 
 	public Date getCreatedAt() {
 		return createdAt;

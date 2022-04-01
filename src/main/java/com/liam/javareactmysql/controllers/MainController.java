@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.liam.javareactmysql.models.LoginUser;
 import com.liam.javareactmysql.models.User;
 import com.liam.javareactmysql.services.FileService;
 import com.liam.javareactmysql.services.PhotoService;
@@ -43,10 +44,20 @@ public class MainController {
 	@Autowired
 	private PhotoService photoServ;
 	
-	@Autowired
-	private FileService fileServ;
+//	@Autowired
+//	private FileService fileServ;
+//	
+//	private String IMAGE_FOLDER="src/main/client/src/imgs/";
 	
-	private String IMAGE_FOLDER="src/main/client/src/imgs/";
+   // Create User Process
+   @PostMapping("/registerUser")
+   public ResponseEntity<User> registerUser(@Valid @RequestBody User newUser, BindingResult result, HttpSession session) {
+
+   	userServ.createUser(newUser, result);
+   	session.setAttribute("user_id", newUser.getId());
+
+    return new ResponseEntity<User>(newUser, HttpStatus.OK);
+   }
 
 	
 	
@@ -56,31 +67,43 @@ public class MainController {
 	}
 	
 	@PostMapping("/createPhoto")
-	public Photo create(@Valid @ModelAttribute Photo photo, BindingResult result, @RequestParam("file") MultipartFile file) {
-		if(result.hasErrors()) {
-			throw new ResponseStatusException(
-	    			   HttpStatus.NOT_FOUND, "entity not found"
-	    			 );
-		}
-		else {
-			try {
+	public ResponseEntity<Photo> create(@Valid @RequestBody Photo photo, BindingResult result, HttpSession session) {
+		Long userId = (Long) session.getAttribute("user_id");
+		System.out.println(userId);
+		photo.setOwner(userServ.getUser(userId));
+	    photoServ.createOne(photo);
+	    
+		return new ResponseEntity<Photo>(photo, HttpStatus.OK);
 
-				try (FileOutputStream output = new FileOutputStream(IMAGE_FOLDER + file.getOriginalFilename())) {
-					output.write(file.getBytes());
-				}
-				photo.setImgURL("/imgs/" + file.getOriginalFilename());
-				
-			} catch (IOException e) {
-
-				e.printStackTrace();
-			}
+}
 		
-			
-			return photoServ.createOne(photo);
-
-		}
-		
-	}
+	
+//	@PostMapping("/createPhoto")
+//	public Photo create(@Valid @ModelAttribute Photo photo, BindingResult result, @RequestParam("file") MultipartFile file) {
+//		if(result.hasErrors()) {
+//			throw new ResponseStatusException(
+//	    			   HttpStatus.NOT_FOUND, "entity not found"
+//	    			 );
+//		}
+//		else {
+//			try {
+//
+//				try (FileOutputStream output = new FileOutputStream(IMAGE_FOLDER + file.getOriginalFilename())) {
+//					output.write(file.getBytes());
+//				}
+//				photo.setImgURL("/imgs/" + file.getOriginalFilename());
+//				
+//			} catch (IOException e) {
+//
+//				e.printStackTrace();
+//			}
+//		
+//			
+//			return photoServ.createOne(photo);
+//
+//		}
+//		
+//	}
 	
 //	@GetMapping("/files/{filename:.+}")
 //	  @ResponseBody
@@ -104,31 +127,17 @@ public class MainController {
 //	       return "views/login.jsp";
 //	   }
 	   
-	   // Create User Process
-	   @PostMapping("/registerUser")
-	   public ResponseEntity<User> registerUser(@Valid @RequestBody User newUser, BindingResult result, HttpSession session) {
-//	   	userServ.register(newUser, result);
-	   	userServ.createUser(newUser, result);
-//	       if(result.hasErrors()) {
-//	    	   throw new ResponseStatusException(
-//	    			   HttpStatus.NOT_FOUND, "entity not found"
-//	    			 );
-//	       }
-//	       session.setAttribute("user_id", newUser.getId());
-	       return new ResponseEntity<User>(newUser, HttpStatus.OK);
-	   }
+
 	   
-//	   // Login User Process
-//	   @PostMapping("/loginUser")
-//	   public User loginUser(@Valid @ModelAttribute("newLogin") LoginUser newLogin, BindingResult result, Model model, HttpSession session) {
-//	       User user = userServ.login(newLogin, result);
-//	       if(result.hasErrors()) {
-//	           model.addAttribute("newUser", new User());
-//	           return "views/login.jsp";
-//	       }
-//	       session.setAttribute("user_id", user.getId());
-//	       return "redirect:/dashboard";
-//	   }
+	   // Login User Process
+	   @PostMapping("/loginUser")
+	   public ResponseEntity<User> loginUser(@Valid @RequestBody LoginUser newLogin, BindingResult result, HttpSession session) {
+	    User user = userServ.login(newLogin, result);
+
+	   	session.setAttribute("user_id", user.getId());
+
+	    return new ResponseEntity<User>(user, HttpStatus.OK);
+	   }
 	   
 //	   // Show One User
 //	   @GetMapping("/user/show/{id}")

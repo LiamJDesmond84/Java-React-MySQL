@@ -28,7 +28,7 @@ const Dashboard = () => {
     return (
         <div>
         {photos.map((x,i) => {
-            const imgPath = x.imgURL
+
             return (
             <div key={i}>
                     
@@ -36,7 +36,7 @@ const Dashboard = () => {
                     <div className="title"> {x.title} </div>
                     <div className="body">{x.description}</div>
                     {/* <Image source={x.imgURL} /> */}
-                    <img src={require(imgPath)} alt="" />
+                    <img src={require(x.imgURL)} alt="" />
                     <Link to={`/photos/${x.id}`}>Details</Link>
                     <Link to={`/photos/edit/${x.id}`}>Edit</Link>
                     <button onClick={(e)=>{deletePost(x.id)}}>Delete</button>
