@@ -37,8 +37,8 @@ const Dashboard = () => {
                     <div className="body">{x.description}</div>
                     {/* <Image source={x.imgURL} /> */}
                     <img src={`${x.imgURL}`} alt="" />
-                    <Link to={`/photos/${x.id}`}>Details</Link>
-                    <Link to={`/photos/edit/${x.id}`}>Edit</Link>
+                    <Link to={`/photo/${x.id}`}>Details</Link>
+                    <Link to={`/photo/edit/${x.id}`}>Edit</Link>
                     <button onClick={(e)=>{deletePost(x.id)}}>Delete</button>
                     </div>
             </div>

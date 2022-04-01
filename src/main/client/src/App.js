@@ -5,30 +5,30 @@ import Login from "./components/Login";
 import NewPhoto from "./components/NewPhoto";
 import { PhotoDetails } from "./components/PhotoDetails";
 import Register from "./components/Register";
+import UpdatePhoto from "./components/UpdatePhoto";
 
 function App() {
-  return (
-<Router>
-		<div className="navbar">
-		<Link to="/dashboard">Home</Link>
-		<Link to="/">Login</Link>
-		<Link to="/register">Register</Link>
-		<Link to="/newphoto">Add a Photo</Link>
+	return (
+	<Router>
+			<div className="navbar">
+			<Link to="/dashboard">Home</Link>
+			<Link to="/">Login</Link>
+			<Link to="/register">Register</Link>
+			<Link to="/newphoto">Add a Photo</Link>
+			</div>
+		<div className="App">
+
+			<Routes>
+						<Route path="/dashboard" element={<Dashboard />} />
+						<Route path="/" element={<Login />} />
+						<Route path="/register" element={<Register />} />
+						<Route path="/newphoto" element={<NewPhoto />} />
+						<Route path="/photo/:id" element={<PhotoDetails />} />
+						<Route path="/photo/edit/:id" element={<UpdatePhoto />} />
+			</Routes>
 		</div>
-    <div className="App">
-
-		<Routes>
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    {/* <Route path="/posts/edit/:id" element={<UpdatePost />} /> */}
-
-                    <Route path="/newphoto" element={<NewPhoto />} />
-					<Route path="/posts/:id" element={<PhotoDetails />} />
-        </Routes>
-    </div>
-	</Router>
-  );
+		</Router>
+	);
 }
 
 export default App;

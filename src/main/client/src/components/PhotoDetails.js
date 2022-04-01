@@ -27,7 +27,7 @@ export const PhotoDetails = () => {
                     <div className="body">{photo.description}</div>
                 </div>
             </div>
-        
+            <Link to={`/photo/edit/${photo.title}`}>Add a Photo</Link>
     </div>
     )
 }
