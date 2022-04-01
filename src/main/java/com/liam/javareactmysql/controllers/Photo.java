@@ -36,7 +36,7 @@ public class Photo {
     @Size(min=3, message="Description must be at least characters long")
 	private String description;
 	
-	@NotBlank(message="Photo is required!")
+	@NotBlank(message="imgURL is required!")
 	private String imgURL;
 	
 
@@ -122,6 +122,14 @@ public class Photo {
 
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+
+	public String getImgURL() {
+		return imgURL;
+	}
+
+	public void setImgURL(String imgURL) {
+		this.imgURL = imgURL;
 	}
 	
 	

@@ -66,7 +66,7 @@ const Login = () => {
             <input className="button" type="submit" placeholder="Submit" />
         <button className="button" onClick={() => navigate("/")}>Cancel</button>
         </form>
-        <small className="text-muted">Don't Have An Account? <a class="ml-2" href="/register">Register!</a></small>
+        <small className="text-muted">Don't Have An Account? <a className="ml-2" href="/register">Register!</a></small>
     </div>
     )
 }

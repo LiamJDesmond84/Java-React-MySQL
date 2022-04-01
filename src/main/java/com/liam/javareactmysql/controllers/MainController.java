@@ -30,7 +30,7 @@ import com.liam.javareactmysql.models.User;
 import com.liam.javareactmysql.services.PhotoService;
 import com.liam.javareactmysql.services.UserService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
 @RestController
 @RequestMapping("/api")
 public class MainController {
@@ -46,7 +46,7 @@ public class MainController {
 	
 
 
-	
+	Long sesh;
 
 
 	
@@ -58,14 +58,17 @@ public class MainController {
 	
 	@PostMapping("/createPhoto")
 	public ResponseEntity<Photo> create(@Valid @RequestBody Photo photo, BindingResult result) {
-		if (session.getAttribute("user_id") == null) {
-			System.out.println("User NOT in Session");
-		}
-		
-		// Prints "User NOT in Session"
-		Long userId = (Long) session.getAttribute("user_id");
-		System.out.println(userId);
-		photo.setOwner(userServ.getUser(userId));
+//		Long test = (Long) session.getAttribute("user_id");
+//	   	System.out.println("create");
+//		System.out.println(session.getAttribute("user_id"));
+//		if (session.getAttribute("user_id") == null) {
+//			System.out.println("User NOT in Session");
+//		}
+//		
+//		// Prints "User NOT in Session"
+//		Long userId = (Long) session.getAttribute("user_id");
+//		System.out.println(userId);
+		photo.setOwner(userServ.getUser(sesh));
 	    photoServ.createOne(photo);
 	    
 		return new ResponseEntity<Photo>(photo, HttpStatus.OK);
@@ -115,10 +118,13 @@ public class MainController {
 	    // prints out 3
 
 	   	session.setAttribute("user_id", user.getId());
-	   	
-		if (session.getAttribute("user_id") == null) {
-			System.out.println("User NOT in Session");
-		}
+	   	sesh = (Long) session.getAttribute("user_id");
+	   	System.out.println("login");
+		System.out.println(session.getAttribute("user_id"));
+//	   	session.setAttribute("friday", "yippee its friday!!");
+//		if (session.getAttribute("friday") == null) {
+//			System.out.println("User NOT in Session");
+//		}
 		
 		// User still in session
 

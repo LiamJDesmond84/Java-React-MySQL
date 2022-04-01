@@ -8,7 +8,7 @@ const NewPhoto = () => {
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
-    const [imgURL, setImgURL] = useState("")
+    const [imgURL, setimgURL] = useState("")
 
 
 
@@ -17,13 +17,15 @@ const NewPhoto = () => {
         console.log(description);
         console.log(imgURL);
         console.log(imgURL);
+        console.log(title);
+        console.log(description);
         e.preventDefault();
         axios.post("http://localhost:8080/api/createPhoto", {title, description, imgURL})
             .then((res) => {
                 console.log(res);
                 setTitle("");
                 setDescription("");
-                setImgURL("");
+                setimgURL("");
                 navigate("/");
                 // setHasBeenSubmitted(!hasBeenSubmitted);
                 })
@@ -39,7 +41,7 @@ const NewPhoto = () => {
 
             <div className="modern-form">
     
-                <form onSubmit={createPost} method='POST' encType='multipart/form-data' action="..">
+                <form onSubmit={createPost}>
                 <h4>Add a Post</h4>
                 <label>Title</label>
                 <fieldset className='float-label-field'>
@@ -61,7 +63,7 @@ const NewPhoto = () => {
                 </fieldset>
                 <label>Photo</label>
                 <fieldset className='float-label-field'>
-                    <input id="txtName" type="text" name="imgURL" value={imgURL} onChange={(e) => setImgURL(e.target.value)} />
+                    <input id="txtName" type="text" name="imgURL" value={imgURL} onChange={(e) => setimgURL(e.target.value)} />
                     {
                         errors.path === "imgURL"?
                         <p>{errors.message}</p>
