@@ -10,31 +10,40 @@ const UpdatePhoto = () => {
     // const navigate = useNavigate();
     // const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
 
-    const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
-    const [imgURL, setImgURL] = useState("")
-
+    // const [title, setTitle] = useState("")
+    // const [description, setDescription] = useState("")
+    // const [imgURL, setImgURL] = useState("")
 
     const [errors, setErrors] = useState({});
 
+    const [photoObject, setPhotoObject] = useState({title: "", description: "", imgURL: ""})
+
+    const inputHandler = (e) => {
+        let newPhotoObject = {...photoObject};
+        newPhotoObject[e.target.name] = e.target.value;
+        console.log(newPhotoObject);
+        setPhotoObject(newPhotoObject);
+    }
+
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/posts/byId/${id}`)
+        axios.get(`http://localhost:8080/api/getPhoto/${id}`)
             .then(res => {console.log(res);
-                setTitle(res.data.title);
-                setDescription(res.data.description);
-                setImgURL(res.data.imgURL);
+                setPhotoObject(res.data);
+                // setTitle(res.data.title);
+                // setDescription(res.data.description);
+                // setImgURL(res.data.imgURL);
                 })
             .catch(err => {console.log(err);navigate('/error');})
     }, [id])
 
     const updatePhoto = (e) => {
         e.preventDefault();
-        axios.put(`http://localhost:8080/api/updatePhoto/${id}`, {title, description, imgURL})
+        axios.put(`http://localhost:8080/api/updatePhoto/${id}`, photoObject)
             .then((res) => {
                 console.log(res);
-                setTitle("");
-                setDescription("");
-                setImgURL("");
+                // setTitle("");
+                // setDescription("");
+                // setImgURL("");
                 navigate("/dashboard");
                 // setHasBeenSubmitted(!hasBeenSubmitted);
                 })
@@ -54,7 +63,7 @@ const UpdatePhoto = () => {
                 <h4>Add a Post</h4>
                 <label>Title</label>
                 <fieldset className='float-label-field'>
-                    <input id="txtName" type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)}  />
+                    <input id="txtName" type="text" name="title" value={photoObject.title} onChange={inputHandler}  />
                     {
                         errors.path === "title"?
                         <p>{errors.message}</p>
@@ -63,7 +72,7 @@ const UpdatePhoto = () => {
                 </fieldset>
                 <label>Description</label>
                 <fieldset className='float-label-field'>
-                    <input id="txtName" type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)} />
+                    <input id="txtName" type="text" name="description" value={photoObject.description} onChange={inputHandler} />
                     {
                         errors.path === "description"?
                         <p>{errors.message}</p>
@@ -72,7 +81,7 @@ const UpdatePhoto = () => {
                 </fieldset>
                 <label>UserName</label>
                 <fieldset className='float-label-field'>
-                    <input id="txtName" type="text" name="username" value={imgURL} onChange={(e) => setImgURL(e.target.value)} />
+                    <input id="txtName" type="text" name="username" value={photoObject.imgURL} onChange={inputHandler} />
                     {
                         errors.path === "username"?
                         <p>{errors.message}</p>
