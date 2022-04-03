@@ -19,7 +19,7 @@ const Dashboard = () => {
         }, [hasBeenSubmitted]);
 
     const deletePost = (id) => {
-        axios.delete(`http://localhost:8080/api/photo/${id}`)
+        axios.delete(`http://localhost:8080/api/deletePhoto/${id}`)
             .then(res => {console.log(res)})
             .catch(err => console.log(err))
             setHasBeenSubmitted(!hasBeenSubmitted)
@@ -36,7 +36,7 @@ const Dashboard = () => {
                     <div className="title"> {x.title} </div>
                     <div className="body">{x.description}</div>
                     {/* <Image source={x.imgURL} /> */}
-                    <img src={`${x.imgURL}`} alt="" />
+                    <img style={{width: "200px", height: "150px"}}src={`${x.imgURL}`} alt="" />
                     <Link to={`/photo/${x.id}`}>Details</Link>
                     <Link to={`/photo/edit/${x.id}`}>Edit</Link>
                     <button onClick={(e)=>{deletePost(x.id)}}>Delete</button>
