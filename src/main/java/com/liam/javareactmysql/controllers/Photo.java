@@ -18,6 +18,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.liam.javareactmysql.models.User;
 
 @Entity
@@ -60,6 +61,7 @@ public class Photo {
 	
 	
 	// Many to One
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User owner;

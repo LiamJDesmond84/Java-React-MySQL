@@ -54,7 +54,7 @@ const NewPhoto = () => {
                 <h4>Add a Post</h4>
                 <label>Title</label>
                 <fieldset className='float-label-field'>
-                    <input id="txtName" type="text" name="title" value={title} onChange={inputHandler}  />
+                    <input id="txtName" type="text" name="title" value={photoObject.title} onChange={inputHandler}  />
                     {
                         errors.path === "title"?
                         <p>{errors.message}</p>
@@ -63,7 +63,7 @@ const NewPhoto = () => {
                 </fieldset>
                 <label>Description</label>
                 <fieldset className='float-label-field'>
-                    <input id="txtName" type="text" name="description" value={description}  onChange={inputHandler} />
+                    <input id="txtName" type="text" name="description" value={photoObject.description}  onChange={inputHandler} />
                     {
                         errors.path === "description"?
                         <p>{errors.message}</p>
@@ -72,7 +72,7 @@ const NewPhoto = () => {
                 </fieldset>
                 <label>Photo</label>
                 <fieldset className='float-label-field'>
-                    <input id="txtName" type="text" name="imgURL" value={imgURL}  onChange={inputHandler} />
+                    <input id="txtName" type="text" name="imgURL" value={photoObject.imgURL}  onChange={inputHandler} />
                     {
                         errors.path === "imgURL"?
                         <p>{errors.message}</p>

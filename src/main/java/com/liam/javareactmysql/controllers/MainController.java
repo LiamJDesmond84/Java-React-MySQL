@@ -30,7 +30,8 @@ import com.liam.javareactmysql.models.User;
 import com.liam.javareactmysql.services.PhotoService;
 import com.liam.javareactmysql.services.UserService;
 
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
+//@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class MainController {
@@ -76,7 +77,7 @@ public class MainController {
 	
 	
 	@PostMapping("/createPhoto")
-	public ResponseEntity<Photo> create(@Valid @RequestBody Photo photo, BindingResult result) {
+	public Photo create(@RequestBody Photo photo) {
 //		Long test = (Long) session.getAttribute("user_id");
 //	   	System.out.println("create");
 //		System.out.println(session.getAttribute("user_id"));
@@ -88,9 +89,9 @@ public class MainController {
 //		Long userId = (Long) session.getAttribute("user_id");
 //		System.out.println(userId);
 		photo.setOwner(userServ.getUser(sesh));
-	    photoServ.createOne(photo);
+		return photoServ.createOne(photo);
 	    
-		return new ResponseEntity<Photo>(photo, HttpStatus.OK);
+//		return new ResponseEntity<Photo>(photo, HttpStatus.OK);
 
 }
 		
