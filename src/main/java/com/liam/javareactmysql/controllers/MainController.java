@@ -77,7 +77,7 @@ public class MainController {
 	
 	
 	@PostMapping("/createPhoto")
-	public Photo create(@RequestBody Photo photo) {
+	public ResponseEntity<Photo> create(@Valid @RequestBody Photo photo, BindingResult result) {
 //		Long test = (Long) session.getAttribute("user_id");
 //	   	System.out.println("create");
 //		System.out.println(session.getAttribute("user_id"));
@@ -89,9 +89,9 @@ public class MainController {
 //		Long userId = (Long) session.getAttribute("user_id");
 //		System.out.println(userId);
 		photo.setOwner(userServ.getUser(sesh));
-		return photoServ.createOne(photo);
+	    photoServ.createOne(photo);
 	    
-//		return new ResponseEntity<Photo>(photo, HttpStatus.OK);
+		return new ResponseEntity<Photo>(photo, HttpStatus.OK);
 
 }
 		
@@ -141,11 +141,7 @@ public class MainController {
 	   	sesh = (Long) session.getAttribute("user_id");
 	   	System.out.println("login");
 		System.out.println(session.getAttribute("user_id"));
-//	   	session.setAttribute("friday", "yippee its friday!!");
-//		if (session.getAttribute("friday") == null) {
-//			System.out.println("User NOT in Session");
-//		}
-		
+
 		// User still in session
 
 
