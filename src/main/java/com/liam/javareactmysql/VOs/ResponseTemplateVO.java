@@ -5,9 +5,9 @@ import com.liam.javareactmysql.models.User;
 
 public class ResponseTemplateVO {
 	
-	private User user;
-	
 	private Photo photo;
+	
+	private User user;
 
 	public ResponseTemplateVO() {
 

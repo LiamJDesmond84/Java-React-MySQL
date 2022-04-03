@@ -79,6 +79,7 @@ public class MainController {
 	@PutMapping("/updatePhoto/{id}")
 	public Photo updateOne(@RequestBody Photo photo) {
 //		Photo photo =  photoServ.getOne(id);
+		photo.setOwner(userServ.getUser(sesh));
 		return photoServ.updateOne(photo);
 	}
 	
