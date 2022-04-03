@@ -215,14 +215,15 @@ button {
 }
 
 #individual {
-  height: 400px;
+  height: 425px;
   width: 400px;
 
 }
 
 #individual .title,
 #individual .footer {
-  font-size: 30px;
+  font-size: 25px;
+  place-items: center;
 }
 
 #individual .body {
