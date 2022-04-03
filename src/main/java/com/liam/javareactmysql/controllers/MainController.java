@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.liam.javareactmysql.VOs.ResponseTemplateVO;
 import com.liam.javareactmysql.models.LoginUser;
 import com.liam.javareactmysql.models.User;
 
@@ -58,11 +58,16 @@ public class MainController {
 		return photoServ.getAll();
 	}
 	
-	
 	@GetMapping("/getPhoto/{id}")
-	public Photo getOne(@PathVariable("id") Long id) {
-		return photoServ.getOne(id);
+	public ResponseTemplateVO  getUsersPhotos(@PathVariable("id") Long id) {
+		return photoServ.getUserPhotos(id);
 	}
+	
+	
+//	@GetMapping("/getPhoto/{id}")
+//	public Photo getOne(@PathVariable("id") Long id) {
+//		return photoServ.getOne(id);
+//	}
 	
 	@DeleteMapping("/deletePhoto/{id}")
 	public void deleteOne(@PathVariable("id") Long id) {

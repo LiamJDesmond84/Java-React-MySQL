@@ -17,12 +17,13 @@ export const PhotoDetails = () => {
                 setPhoto(res.data);})
             .catch(err => {console.log(err);})
     }, []);
-
+    console.log(photo)
     return (
     <div>
             <div className="leftSide">
                 <div className="post" id="individual">
-                    <div className="title"> {photo.title} </div>
+                    <div className="title"> {photo.title} added by: {photo.owner} </div>
+
                     <img src={`${photo.imgURL}`} alt="" style={{width: "250px", marginLeft: "75px"}} />
                     <div className="body">{photo.description}</div>
                 </div>
