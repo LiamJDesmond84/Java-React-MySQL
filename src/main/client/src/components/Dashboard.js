@@ -32,14 +32,14 @@ const Dashboard = () => {
             return (
             <div key={i}>
                     
-                    <div className="post">
+                    <div className="post" style={{overflow: 'hidden'}}>
                     <div className="title"> {x.title} </div>
                     <div className="body">{x.description}</div>
                     {/* <Image source={x.imgURL} /> */}
-                    <img src={`${x.imgURL}`} alt="" style={{width: "200px", height: "150px"}} />
-                    <Link to={`/photo/${x.id}`}>Details</Link>
-                    <Link to={`/photo/edit/${x.id}`}>Edit</Link>
-                    <button onClick={(e)=>{deletePost(x.id)}}>Delete</button>
+                    <img src={`${x.imgURL}`} alt="" style={{width: "200px", height: "150px", marginLeft: "50px"}} />
+                    <Link className="body" to={`/photo/${x.id}`}>Details</Link>
+                    <Link className="body" to={`/photo/edit/${x.id}`}>Edit</Link>
+                    <button style={{marginLeft: "50px"}} className="body" onClick={(e)=>{deletePost(x.id)}}>Delete</button>
                     </div>
             </div>
             );
