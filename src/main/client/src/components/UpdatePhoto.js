@@ -26,7 +26,7 @@ const UpdatePhoto = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/getPhoto/${id}`)
+        axios.get(`http://localhost:8080/api/getPhotoDetails/${id}`)
             .then(res => {console.log(res);
                 setPhotoObject(res.data);
                 // setTitle(res.data.title);

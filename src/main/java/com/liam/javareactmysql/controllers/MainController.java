@@ -64,10 +64,10 @@ public class MainController {
 	}
 	
 	
-//	@GetMapping("/getPhoto/{id}")
-//	public Photo getOne(@PathVariable("id") Long id) {
-//		return photoServ.getOne(id);
-//	}
+	@GetMapping("/getPhotoDetails/{id}")
+	public Photo getOne(@PathVariable("id") Long id) {
+		return photoServ.getOne(id);
+	}
 	
 	@DeleteMapping("/deletePhoto/{id}")
 	public void deleteOne(@PathVariable("id") Long id) {
