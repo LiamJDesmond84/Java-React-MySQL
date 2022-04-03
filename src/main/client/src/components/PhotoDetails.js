@@ -19,15 +19,15 @@ export const PhotoDetails = () => {
     }, []);
 
     return (
-    <div className="postPage">
+    <div>
             <div className="leftSide">
                 <div className="post" id="individual">
-                    <img src={`${photo.imgURL}`} alt="" />
                     <div className="title"> {photo.title} </div>
+                    <img src={`${photo.imgURL}`} alt="" style={{width: "250px", marginLeft: "75px"}} />
                     <div className="body">{photo.description}</div>
                 </div>
             </div>
-            <Link to={`/photo/edit/${photo.title}`}>Add a Photo</Link>
+
     </div>
     )
 }

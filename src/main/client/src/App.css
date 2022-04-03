@@ -124,19 +124,7 @@ body {
   place-items: center;
 }
 
-#individual {
-  height: 500px;
-  width: 600px;
-}
 
-#individual .title,
-#individual .footer {
-  font-size: 30px;
-}
-
-#individual .body {
-  font-size: 25px;
-}
 
 span {
   color: red;
@@ -227,8 +215,8 @@ button {
 }
 
 #individual {
-  height: 500px;
-  width: 600px;
+  height: 400px;
+  width: 400px;
 
 }
 
