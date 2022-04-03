@@ -10,6 +10,15 @@ const NewPhoto = () => {
     const [description, setDescription] = useState("")
     const [imgURL, setimgURL] = useState("")
 
+    const [photoObject, setPhotoObject] = useState({title: "", description: "", imgURL: ""})
+
+    const inputHandler = (e) => {
+        let newPhotoObject = {...photoObject};
+        newPhotoObject[e.target.name] = e.target.value;
+        console.log(newPhotoObject);
+        setPhotoObject(newPhotoObject);
+    }
+
 
 
     const createPost = (e) => {
@@ -20,7 +29,7 @@ const NewPhoto = () => {
         console.log(title);
         console.log(description);
         e.preventDefault();
-        axios.post("http://localhost:8080/api/createPhoto", {title, description, imgURL})
+        axios.post("http://localhost:8080/api/createPhoto", photoObject)
             .then((res) => {
                 console.log(res);
                 setTitle("");
@@ -45,7 +54,7 @@ const NewPhoto = () => {
                 <h4>Add a Post</h4>
                 <label>Title</label>
                 <fieldset className='float-label-field'>
-                    <input id="txtName" type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)}  />
+                    <input id="txtName" type="text" name="title" value={title} onChange={inputHandler}  />
                     {
                         errors.path === "title"?
                         <p>{errors.message}</p>
@@ -54,7 +63,7 @@ const NewPhoto = () => {
                 </fieldset>
                 <label>Description</label>
                 <fieldset className='float-label-field'>
-                    <input id="txtName" type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)} />
+                    <input id="txtName" type="text" name="description" value={description}  onChange={inputHandler} />
                     {
                         errors.path === "description"?
                         <p>{errors.message}</p>
@@ -63,7 +72,7 @@ const NewPhoto = () => {
                 </fieldset>
                 <label>Photo</label>
                 <fieldset className='float-label-field'>
-                    <input id="txtName" type="text" name="imgURL" value={imgURL} onChange={(e) => setimgURL(e.target.value)} />
+                    <input id="txtName" type="text" name="imgURL" value={imgURL}  onChange={inputHandler} />
                     {
                         errors.path === "imgURL"?
                         <p>{errors.message}</p>
