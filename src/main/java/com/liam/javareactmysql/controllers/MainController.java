@@ -65,23 +65,11 @@ public class MainController {
 		return photoServ.getOne(id);
 	}
 	
-	@DeleteMapping("/deletePhoto/{id}")
-	public void deleteOne(@PathVariable("id") Long id) {
-		System.out.println("made it this far");
-		photoServ.deleteOne(id);
-	}
-	
-//	@PutMapping("/updatePhoto/{id}")
-	@PutMapping("/updatePhoto/{id}")
-	public Photo updateOne(@RequestBody Photo photo) {
-//		Photo photo =  photoServ.getOne(id);
-		photo.setOwner(userServ.getUser(sesh));
-		return photoServ.updateOne(photo);
-	}
+
 	
 	
 	@PostMapping("/createPhoto")
-	public ResponseEntity<Photo> create(@Valid @RequestBody Photo photo, BindingResult result) {
+	public ResponseEntity<Photo> create(@Valid @RequestBody Photo photo) {
 //		Long test = (Long) session.getAttribute("user_id");
 //	   	System.out.println("create");
 //		System.out.println(session.getAttribute("user_id"));
@@ -92,12 +80,29 @@ public class MainController {
 //		// Prints "User NOT in Session"
 //		Long userId = (Long) session.getAttribute("user_id");
 //		System.out.println(userId);
+		Photo newPhoto = photoServ.createOne(photo);
 		photo.setOwner(userServ.getUser(sesh));
-	    photoServ.createOne(photo);
 	    
-		return new ResponseEntity<Photo>(photo, HttpStatus.OK);
+	    
+		return new ResponseEntity<Photo>(newPhoto, HttpStatus.OK);
 
 }
+	
+//	@PutMapping("/updatePhoto/{id}")
+	@PutMapping("/updatePhoto/{id}")
+	public Photo updateOne(@RequestBody Photo photo) {
+//		Photo photo =  photoServ.getOne(id);
+		photo.setOwner(userServ.getUser(sesh));
+		return photoServ.updateOne(photo);
+	}
+	
+	@DeleteMapping("/deletePhoto/{id}")
+	public void deleteOne(@PathVariable("id") Long id) {
+		System.out.println("made it this far");
+		photoServ.deleteOne(id);
+	}
+	
+
 		
 	
 
@@ -122,16 +127,17 @@ public class MainController {
 		   
 
 
-	   	userServ.createUser(newUser, result);
+	   	User user = userServ.createUser(newUser, result);
 	   	if(result.hasErrors()) {
-	           return new ResponseEntity<>(newUser, HttpStatus.BAD_REQUEST);
+	   			System.out.println(result);
+	           return new ResponseEntity<User>(user, HttpStatus.BAD_REQUEST);
 	       }
 
 	   	
 	   	session.setAttribute("user_id", newUser.getId());
 	   	sesh = (Long) session.getAttribute("user_id");
-
-	    return new ResponseEntity<User>(newUser, HttpStatus.OK);
+	   	System.out.println();
+	    return new ResponseEntity<User>(user, HttpStatus.OK);
 	   }
 	
 
@@ -143,7 +149,7 @@ public class MainController {
 	   public ResponseEntity<User> loginUser(@Valid @RequestBody LoginUser newLogin, BindingResult result) {
 	    User user = userServ.login(newLogin, result);
 	   	if(result.hasErrors()) {
-	           return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	           return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
 	       }
 	    System.out.println(user.getId());
 	    // prints out 3

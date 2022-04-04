@@ -64,8 +64,6 @@ public class Photo {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User owner;
-	
-	
 
 	public Long getId() {
 		return id;
@@ -91,15 +89,13 @@ public class Photo {
 		this.description = description;
 	}
 
+	public String getImgURL() {
+		return imgURL;
+	}
 
-
-//	public String getImgURL() {
-//		return imgURL;
-//	}
-//
-//	public void setImgURL(String imgURL) {
-//		this.imgURL = imgURL;
-//	}
+	public void setImgURL(String imgURL) {
+		this.imgURL = imgURL;
+	}
 
 	public Date getCreatedAt() {
 		return createdAt;
@@ -124,13 +120,9 @@ public class Photo {
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}
+	
+	
 
-	public String getImgURL() {
-		return imgURL;
-	}
-
-	public void setImgURL(String imgURL) {
-		this.imgURL = imgURL;
-	}
+	
 
 }

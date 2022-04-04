@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 
 const NewPhoto = () => {
     const navigate = useNavigate();
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState("");
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
@@ -39,9 +39,11 @@ const NewPhoto = () => {
                 // setHasBeenSubmitted(!hasBeenSubmitted);
                 })
             .catch((err) => {
-            // console.log(err.response.data.errors[0]);
-            setErrors(err.response.data.errors[0])});
+                console.log(err);
+            console.log(err.response.data.errors[0]);
+            setErrors(err.response.data.errors[0])
             console.log(errors);
+        });
 
             
         };
@@ -56,8 +58,8 @@ const NewPhoto = () => {
                 <fieldset className='float-label-field'>
                     <input id="txtName" type="text" name="title" value={photoObject.title} onChange={inputHandler}  />
                     {
-                        errors.path === "title"?
-                        <p>{errors.message}</p>
+                        errors.field === "title" ?
+                        <p>{errors.defaultMessage}</p>
                         :null
                     }
                 </fieldset>
@@ -65,8 +67,8 @@ const NewPhoto = () => {
                 <fieldset className='float-label-field'>
                     <input id="txtName" type="text" name="description" value={photoObject.description}  onChange={inputHandler} />
                     {
-                        errors.path === "description"?
-                        <p>{errors.message}</p>
+                        errors.field === "description" ?
+                        <p>{errors.defaultMessage}</p>
                         :null
                     }
                 </fieldset>
@@ -74,8 +76,8 @@ const NewPhoto = () => {
                 <fieldset className='float-label-field'>
                     <input id="txtName" type="text" name="imgURL" value={photoObject.imgURL}  onChange={inputHandler} />
                     {
-                        errors.path === "imgURL"?
-                        <p>{errors.message}</p>
+                        errors.field === "imgURL" ?
+                        <p>{errors.defaultMessage}</p>
                         :null
                     }
                 </fieldset>
