@@ -29,14 +29,18 @@ public class Photo {
 	private Long id;
 	
 	@NotBlank(message="Title is required!")
-    @Size(min=3, max=30, message="Title must be between 3 and 30 characters")
+//	@Size(min=3, max=30, message="Title must be between 3 and 30 characters")
+    @Size(min=3, max=30)
 	private String title;
 	
 	@NotBlank(message="Description is required!")
-    @Size(min=3, message="Description must be at least characters long")
+//	@Size(min=3, message="Description must be at least 3 characters long")
+    @Size(min=3, max=300)
 	private String description;
 	
 	@NotBlank(message="imgURL is required!")
+//	@Size(min=3, message="Image URL must be at least 3 characters long")
+    @Size(min=3, message="Image URL must be at least 3 characters long")
 	private String imgURL;
 	
 
