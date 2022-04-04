@@ -10,24 +10,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 import com.liam.javareactmysql.VOs.ResponseTemplateVO;
 import com.liam.javareactmysql.models.LoginUser;
 import com.liam.javareactmysql.models.User;
-
 import com.liam.javareactmysql.services.PhotoService;
 import com.liam.javareactmysql.services.UserService;
 
@@ -123,13 +119,17 @@ public class MainController {
 	   // Create User Process
 	   @PostMapping("/registerUser")
 	   public ResponseEntity<User> registerUser(@Valid @RequestBody User newUser, BindingResult result) {
+		   
+
 
 	   	userServ.createUser(newUser, result);
 	   	if(result.hasErrors()) {
-	           return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	           return new ResponseEntity<>(newUser, HttpStatus.BAD_REQUEST);
 	       }
+
 	   	
 	   	session.setAttribute("user_id", newUser.getId());
+	   	sesh = (Long) session.getAttribute("user_id");
 
 	    return new ResponseEntity<User>(newUser, HttpStatus.OK);
 	   }
@@ -142,6 +142,9 @@ public class MainController {
 	   @PostMapping("/loginUser")
 	   public ResponseEntity<User> loginUser(@Valid @RequestBody LoginUser newLogin, BindingResult result) {
 	    User user = userServ.login(newLogin, result);
+	   	if(result.hasErrors()) {
+	           return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	       }
 	    System.out.println(user.getId());
 	    // prints out 3
 

@@ -33,6 +33,7 @@ const Register = () => {
                 // setHasBeenSubmitted(!hasBeenSubmitted);
                 })
             .catch((err) => {
+            console.log("Register Error");
             console.log(err.response.data);
             setErrors(err.response.data)});
             console.log(errors);
@@ -91,7 +92,7 @@ const Register = () => {
         <input className="button" type="submit" placeholder="Submit" />
     <button className="button" onClick={() => navigate("/")}>Cancel</button>
     </form>
-    <small className="text-muted">Already a User? <a class="ml-2" href="/">Sign In!</a></small>
+    <small className="text-muted">Already a User? <a className="ml-2" href="/">Sign In!</a></small>
 </div>
 )
 };

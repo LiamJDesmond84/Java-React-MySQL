@@ -29,7 +29,7 @@ const Login = () => {
                 // setHasBeenSubmitted(!hasBeenSubmitted);
                 })
             .catch((err) => {
-
+            console.log("Login Error");
             console.log(err);
             setErrors(err.response.data)});
             console.log(errors);
