@@ -1,4 +1,4 @@
-package com.liam.javareactmysql.controllers;
+package com.liam.javareactmysql.models;
 
 import java.util.Date;
 
@@ -19,7 +19,6 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.liam.javareactmysql.models.User;
 
 @Entity
 @Table(name="photos")
@@ -133,10 +132,5 @@ public class Photo {
 	public void setImgURL(String imgURL) {
 		this.imgURL = imgURL;
 	}
-	
-	
-	
-	
-	
 
 }

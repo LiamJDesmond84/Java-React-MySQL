@@ -1,6 +1,6 @@
 package com.liam.javareactmysql.VOs;
 
-import com.liam.javareactmysql.controllers.Photo;
+import com.liam.javareactmysql.models.Photo;
 import com.liam.javareactmysql.models.User;
 
 public class ResponseTemplateVO {

@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.liam.javareactmysql.VOs.ResponseTemplateVO;
 import com.liam.javareactmysql.models.LoginUser;
+import com.liam.javareactmysql.models.Photo;
 import com.liam.javareactmysql.models.User;
 import com.liam.javareactmysql.services.PhotoService;
 import com.liam.javareactmysql.services.UserService;

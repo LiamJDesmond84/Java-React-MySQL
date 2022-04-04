@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.liam.javareactmysql.VOs.ResponseTemplateVO;
-import com.liam.javareactmysql.controllers.Photo;
+import com.liam.javareactmysql.models.Photo;
 import com.liam.javareactmysql.models.User;
 import com.liam.javareactmysql.repositories.PhotoRepository;
 import com.liam.javareactmysql.repositories.UserRepository;
