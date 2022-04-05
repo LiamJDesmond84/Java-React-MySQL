@@ -48,12 +48,13 @@ public class MainController {
 
 
 	
-	
+	// Get All
 	@GetMapping("/allPhotos")
 	public List<Photo> getAll() {
 		return photoServ.getAll();
 	}
 	
+	// Get One
 	@GetMapping("/getPhoto/{id}")
 	public ResponseTemplateVO  getUsersPhotos(@PathVariable("id") Long id) {
 		return photoServ.getUserPhotos(id);
@@ -88,10 +89,10 @@ public class MainController {
 
 }
 	
-//	@PutMapping("/updatePhoto/{id}")
+
 	@PutMapping("/updatePhoto/{id}")
 	public Photo updateOne(@RequestBody Photo photo) {
-//		Photo photo =  photoServ.getOne(id);
+
 		photo.setOwner(userServ.getUser(sesh));
 		return photoServ.updateOne(photo);
 	}
