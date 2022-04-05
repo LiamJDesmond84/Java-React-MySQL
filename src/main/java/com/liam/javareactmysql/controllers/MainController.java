@@ -54,13 +54,14 @@ public class MainController {
 		return photoServ.getAll();
 	}
 	
-	// Get One
+	// Get One with creator details(for details page)
 	@GetMapping("/getPhoto/{id}")
 	public ResponseTemplateVO  getUsersPhotos(@PathVariable("id") Long id) {
 		return photoServ.getUserPhotos(id);
 	}
 	
 	
+	// Get One(for update page)
 	@GetMapping("/getPhotoDetails/{id}")
 	public Photo getOne(@PathVariable("id") Long id) {
 		return photoServ.getOne(id);
@@ -68,12 +69,13 @@ public class MainController {
 	
 
 	
-	
+	// Create One
 	@PostMapping("/createPhoto")
 	public ResponseEntity<Photo> create(@Valid @RequestBody Photo photo) {
 //		Long test = (Long) session.getAttribute("user_id");
-//	   	System.out.println("create");
+
 //		System.out.println(session.getAttribute("user_id"));
+		
 //		if (session.getAttribute("user_id") == null) {
 //			System.out.println("User NOT in Session");
 //		}
@@ -89,7 +91,7 @@ public class MainController {
 
 }
 	
-
+	// Update One
 	@PutMapping("/updatePhoto/{id}")
 	public Photo updateOne(@RequestBody Photo photo) {
 
@@ -97,6 +99,7 @@ public class MainController {
 		return photoServ.updateOne(photo);
 	}
 	
+	// Delete One
 	@DeleteMapping("/deletePhoto/{id}")
 	public void deleteOne(@PathVariable("id") Long id) {
 		System.out.println("made it this far");
