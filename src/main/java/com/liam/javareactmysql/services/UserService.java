@@ -30,7 +30,7 @@ public class UserService {
 		return user;
 	}
 	
-	// Create One
+	// Create One (with email verification)
 	public User createUser(User newUser, BindingResult result) {
 		if(userRepo.findByEmail(newUser.getEmail()).isPresent()) {
           result.rejectValue("email", "Unique", "This email is already in use!");
@@ -44,7 +44,7 @@ public class UserService {
       }
 	}
 	
-//	// Register
+//	// Register(with @Transient confirmPassword)
 //	public User register(User newUser, BindingResult result) {
 //        if(userRepo.findByEmail(newUser.getEmail()).isPresent()) {
 //            result.rejectValue("email", "Unique", "This email is already in use!");

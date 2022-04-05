@@ -14,7 +14,6 @@ public class ResponseTemplateVO {
 	}
 
 	public ResponseTemplateVO(User user, Photo photo) {
-
 		this.user = user;
 		this.photo = photo;
 	}
