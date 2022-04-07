@@ -160,8 +160,9 @@ public class MainController {
 
 	   	session.setAttribute("user_id", user.getId());
 	   	sesh = (Long) session.getAttribute("user_id");
+	   	System.out.println(sesh);
 	   	System.out.println("login");
-		System.out.println(session.getAttribute("user_id"));
+//		System.out.println(session.getAttribute("user_id"));
 
 		// User still in session
 
@@ -185,7 +186,11 @@ public class MainController {
 	   // Logout User
 		@GetMapping("/logout")
 		public String logout() {
+			
 			session.invalidate();
+			sesh = null;
+			
+			System.out.println(sesh);
 			return "redirect:/";
 		}
 		
@@ -193,6 +198,9 @@ public class MainController {
 		@GetMapping("/delete/user/{id}")
 		public String deleteSUser(@PathVariable("id") Long id) {
 			userServ.deleteOne(id);
+			sesh = null;
+			
+			System.out.println(sesh);
 			return "redirect:/dashboard";
 		}
 	
