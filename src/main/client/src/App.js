@@ -24,9 +24,8 @@ function App() {
 
 	
 	return (
-
 	<div>
-		<div className="topnav">
+			<div className="topnav">
 			<Link to="/dashboard">Home</Link>
 			<Link to="/">Login</Link>
 			<Link to="/register">Register</Link>
@@ -34,22 +33,19 @@ function App() {
 				<div  className="topnav-right">
 					<button onClick={logout}>Logout</button>
 				</div>
-		</div>
-		<Router>
-	
-	
-				<div className="App">
-	
-				<Routes>
-							<Route path="/dashboard" element={<Dashboard />} />
-							<Route path="/" element={<Login />} />
-							<Route path="/register" element={<Register />} />
-							<Route path="/newphoto" element={<NewPhoto />} />
-							<Route path="/photo/:id" element={<PhotoDetails />} />
-							<Route path="/photo/edit/:id" element={<UpdatePhoto />} />
-				</Routes>
 			</div>
-			</Router>
+
+			<div className="App">
+
+			<Routes>
+						<Route path="/dashboard" element={<Dashboard />} />
+						<Route path="/" element={<Login />} />
+						<Route path="/register" element={<Register />} />
+						<Route path="/newphoto" element={<NewPhoto />} />
+						<Route path="/photo/:id" element={<PhotoDetails />} />
+						<Route path="/photo/edit/:id" element={<UpdatePhoto />} />
+			</Routes>
+		</div>
 		</div>
 	);
 }

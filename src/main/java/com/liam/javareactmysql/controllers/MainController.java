@@ -198,6 +198,7 @@ public class MainController {
 		@GetMapping("/delete/user/{id}")
 		public String deleteSUser(@PathVariable("id") Long id) {
 			userServ.deleteOne(id);
+		   	System.out.println("logout");
 			sesh = null;
 			
 			System.out.println(sesh);
