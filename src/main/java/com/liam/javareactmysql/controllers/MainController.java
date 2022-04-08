@@ -83,8 +83,8 @@ public class MainController {
 //		// Prints "User NOT in Session"
 //		Long userId = (Long) session.getAttribute("user_id");
 //		System.out.println(userId);
-		Photo newPhoto = photoServ.createOne(photo);
 		photo.setOwner(userServ.getUser(sesh));
+		Photo newPhoto = photoServ.createOne(photo);
 	    
 	    
 		return new ResponseEntity<Photo>(newPhoto, HttpStatus.OK);
@@ -174,12 +174,30 @@ public class MainController {
 	   @GetMapping("/userVerif")
 	   public ResponseEntity<String> showUser() {
 			if (sesh == null) {
-				return ResponseEntity.status(HttpStatus.FORBIDDEN)
-			            .body("Error Message");
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Not Logged in");
 			}
 
 			return ResponseEntity.status(HttpStatus.OK).body("Okay!");
 	   }
+	   
+	   @GetMapping("/checkOwner/{id}")
+	   public ResponseEntity<String> checkOwner(@PathVariable("id") Long id) {
+			if(photoServ.getOne(id).getOwner().getId() != sesh) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Not allowed to edit");
+			}
+			return ResponseEntity.status(HttpStatus.OK).body("Okay!");
+	   }
+	   
+//	   // Verify sesh
+//	   @GetMapping("/userVerif/{id}")
+//	   public ResponseEntity<Photo> checkOwner() {
+//			if (sesh == null) {
+//				return ResponseEntity.status(HttpStatus.FORBIDDEN)
+//			            .body("Error Message");
+//			}
+//
+//			return ResponseEntity.status(HttpStatus.OK).body("Okay!");
+//	   }
 	   
 	   // Logout User
 		@GetMapping("/logout")

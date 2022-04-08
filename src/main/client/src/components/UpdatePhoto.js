@@ -19,12 +19,12 @@ const UpdatePhoto = () => {
     const [photoObject, setPhotoObject] = useState({title: "", description: "", imgURL: ""})
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/userVerif`)
+        axios.get(`http://localhost:8080/api/checkOwner/${id}`)
             .then(res => {
             console.log(res.data);})
             .catch(err => {
             console.log(err.response.data);
-            navigate("/");
+            navigate("/dashboard");
             })
     }, []);
 
@@ -43,7 +43,8 @@ const UpdatePhoto = () => {
                 // setDescription(res.data.description);
                 // setImgURL(res.data.imgURL);
                 })
-            .catch(err => {console.log(err);navigate('/error');})
+            .catch(err => {console.log(err.response.data);
+            navigate('/');})
     }, [id])
 
     const updatePhoto = (e) => {
