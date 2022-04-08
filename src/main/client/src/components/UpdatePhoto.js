@@ -7,12 +7,9 @@ const UpdatePhoto = () => {
 
     const navigate = useNavigate();
     const { id } = useParams();
-    // const navigate = useNavigate();
-    // const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
 
-    // const [title, setTitle] = useState("")
-    // const [description, setDescription] = useState("")
-    // const [imgURL, setImgURL] = useState("")
+
+
 
     const [errors, setErrors] = useState({});
 
@@ -39,9 +36,7 @@ const UpdatePhoto = () => {
         axios.get(`http://localhost:8080/api/getPhotoDetails/${id}`)
             .then(res => {console.log(res);
                 setPhotoObject(res.data);
-                // setTitle(res.data.title);
-                // setDescription(res.data.description);
-                // setImgURL(res.data.imgURL);
+
                 })
             .catch(err => {console.log(err.response.data);
             navigate('/');})
@@ -56,7 +51,7 @@ const UpdatePhoto = () => {
                 // setDescription("");
                 // setImgURL("");
                 navigate("/dashboard");
-                // setHasBeenSubmitted(!hasBeenSubmitted);
+
                 })
             .catch((err) => {
 
