@@ -48,7 +48,7 @@ const NewPhoto = () => {
                 setDescription("");
                 setimgURL("");
                 navigate("/");
-                // setHasBeenSubmitted(!hasBeenSubmitted);
+
                 })
             .catch((err) => {
                 console.log(err);
