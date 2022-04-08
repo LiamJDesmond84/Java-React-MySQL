@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import axios from "axios"
 import { useNavigate } from 'react-router';
+
 
 const NewPhoto = () => {
     const navigate = useNavigate();
@@ -11,6 +12,17 @@ const NewPhoto = () => {
     const [imgURL, setimgURL] = useState("")
 
     const [photoObject, setPhotoObject] = useState({title: "", description: "", imgURL: ""})
+
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/api/userVerif`)
+            .then(res => {
+            console.log(res.data);})
+            .catch(err => {
+            console.log(err.response.data);
+            navigate("/");
+            })
+    }, []);
 
     const inputHandler = (e) => {
         let newPhotoObject = {...photoObject};

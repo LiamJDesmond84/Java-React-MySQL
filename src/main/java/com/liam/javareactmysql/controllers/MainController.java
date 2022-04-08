@@ -160,8 +160,8 @@ public class MainController {
 
 	   	session.setAttribute("user_id", user.getId());
 	   	sesh = (Long) session.getAttribute("user_id");
-	   	System.out.println(sesh);
 	   	System.out.println("login");
+	   	System.out.println(sesh);
 //		System.out.println(session.getAttribute("user_id"));
 
 		// User still in session
@@ -170,18 +170,16 @@ public class MainController {
 	    return new ResponseEntity<User>(user, HttpStatus.OK);
 	   }
 	   
-//	   // Show One User
-//	   @GetMapping("/user/show/{id}")
-//	   public String showUser(@PathVariable("id") Long id, Model model, HttpSession session) {
-//			if (session.getAttribute("user_id") == null) {
-//				return "redirect:/";
-//			}
-//			
-//			Long userId = (Long) session.getAttribute("user_id");
-//			model.addAttribute("userLog", userServ.getUser(userId));
-//	   	model.addAttribute("user", userServ.getUser(id));
-//	       return "views/showUser.jsp";
-//	   }
+	   // Verify sesh
+	   @GetMapping("/userVerif")
+	   public ResponseEntity<String> showUser() {
+			if (sesh == null) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN)
+			            .body("Error Message");
+			}
+
+			return ResponseEntity.status(HttpStatus.OK).body("Okay!");
+	   }
 	   
 	   // Logout User
 		@GetMapping("/logout")
@@ -189,7 +187,7 @@ public class MainController {
 			
 			session.invalidate();
 			sesh = null;
-			
+		   	System.out.println("logout");
 			System.out.println(sesh);
 			return "redirect:/";
 		}
@@ -198,8 +196,8 @@ public class MainController {
 		@GetMapping("/delete/user/{id}")
 		public String deleteSUser(@PathVariable("id") Long id) {
 			userServ.deleteOne(id);
-		   	System.out.println("logout");
-			sesh = null;
+
+
 			
 			System.out.println(sesh);
 			return "redirect:/dashboard";
