@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.liam.javareactmysql.VOs.ResponseTemplateVO;
@@ -126,6 +127,7 @@ public class MainController {
 	
 	
 	   // Create User Process
+		@ResponseBody
 	   @PostMapping("/registerUser")
 	   public ResponseEntity<User> registerUser(@Valid @RequestBody User newUser, BindingResult result) {
 		   
@@ -151,12 +153,11 @@ public class MainController {
 	   	if(result.hasErrors()) {
 	           return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid Email or Password");
 	       }
-	    System.out.println(user.getId());
-	    // prints out 3
 
 	   	session.setAttribute("user_id", user.getId());
 	   	sesh = (Long) session.getAttribute("user_id");
 	   	System.out.println("login");
+	    System.out.println(user.getId());
 	   	System.out.println(sesh);
 //		System.out.println(session.getAttribute("user_id"));
 
@@ -166,6 +167,8 @@ public class MainController {
 	    return ResponseEntity.status(HttpStatus.OK).body("Okay!");
 	   }
 
+	   
+	   // Old Way //
 	   
 //	   // Login User Process
 //	   @PostMapping("/loginUser")

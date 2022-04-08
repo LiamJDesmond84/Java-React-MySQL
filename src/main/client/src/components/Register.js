@@ -34,8 +34,13 @@ const Register = () => {
                 })
             .catch((err) => {
             console.log("Register Error");
-            console.log(err.response.data);
-            setErrors(err.response.data)});
+            setErrors(err.response.data);
+            // console.log(err.response.data[0]);
+            console.log(err.response);
+            // console.log(err);
+            console.log("asfasfsadf")
+            setErrors("Email Already in use")});
+            
             console.log(errors);
 
             
