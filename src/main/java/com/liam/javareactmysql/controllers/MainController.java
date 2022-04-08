@@ -144,16 +144,12 @@ public class MainController {
 	    return new ResponseEntity<User>(user, HttpStatus.OK);
 	   }
 	
-
-	   
-
-	   
 	   // Login User Process
 	   @PostMapping("/loginUser")
-	   public ResponseEntity<User> loginUser(@Valid @RequestBody LoginUser newLogin, BindingResult result) {
+	   public ResponseEntity<String> loginUser(@Valid @RequestBody LoginUser newLogin, BindingResult result) {
 	    User user = userServ.login(newLogin, result);
 	   	if(result.hasErrors()) {
-	           return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+	           return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid Email or Password");
 	       }
 	    System.out.println(user.getId());
 	    // prints out 3
@@ -167,8 +163,31 @@ public class MainController {
 		// User still in session
 
 
-	    return new ResponseEntity<User>(user, HttpStatus.OK);
+	    return ResponseEntity.status(HttpStatus.OK).body("Okay!");
 	   }
+
+	   
+//	   // Login User Process
+//	   @PostMapping("/loginUser")
+//	   public ResponseEntity<User> loginUser(@Valid @RequestBody LoginUser newLogin, BindingResult result) {
+//	    User user = userServ.login(newLogin, result);
+//	   	if(result.hasErrors()) {
+//	           return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+//	       }
+//	    System.out.println(user.getId());
+//	    // prints out 3
+//
+//	   	session.setAttribute("user_id", user.getId());
+//	   	sesh = (Long) session.getAttribute("user_id");
+//	   	System.out.println("login");
+//	   	System.out.println(sesh);
+////		System.out.println(session.getAttribute("user_id"));
+//
+//		// User still in session
+//
+//
+//	    return new ResponseEntity<User>(user, HttpStatus.OK);
+//	   }
 	   
 	   // Verify sesh
 	   @GetMapping("/userVerif")
@@ -180,6 +199,7 @@ public class MainController {
 			return ResponseEntity.status(HttpStatus.OK).body("Okay!");
 	   }
 	   
+	   // Verify if sesh == owner
 	   @GetMapping("/checkOwner/{id}")
 	   public ResponseEntity<String> checkOwner(@PathVariable("id") Long id) {
 			if(photoServ.getOne(id).getOwner().getId() != sesh) {
@@ -188,16 +208,7 @@ public class MainController {
 			return ResponseEntity.status(HttpStatus.OK).body("Okay!");
 	   }
 	   
-//	   // Verify sesh
-//	   @GetMapping("/userVerif/{id}")
-//	   public ResponseEntity<Photo> checkOwner() {
-//			if (sesh == null) {
-//				return ResponseEntity.status(HttpStatus.FORBIDDEN)
-//			            .body("Error Message");
-//			}
-//
-//			return ResponseEntity.status(HttpStatus.OK).body("Okay!");
-//	   }
+
 	   
 	   // Logout User
 		@GetMapping("/logout")

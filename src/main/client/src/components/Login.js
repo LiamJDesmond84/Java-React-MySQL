@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 
 const Login = () => {
     const navigate = useNavigate();
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState("");
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -25,8 +25,8 @@ const Login = () => {
 
                 })
             .catch((err) => {
-            console.log("Login Error");
-            console.log(err);
+
+            console.log(err.response.data);
             setErrors(err.response.data)});
             console.log(errors);
 
@@ -46,7 +46,7 @@ const Login = () => {
             <input id="txtName" type="text" name="email" value={email} onChange={(e) => setEmail(e.target.value)}  />
             {
                 errors ?
-                <p>{errors.error}</p>
+                <p>{errors}</p>
                 :null
             }
         </fieldset>
@@ -55,7 +55,7 @@ const Login = () => {
             <input id="txtName" type="text" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             {
                 errors?
-                <p>{errors.passError}</p>
+                <p>{errors}</p>
                 :null
             }
         </fieldset>
