@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
 import axios from "axios"
 import { useNavigate } from 'react-router';
-// import { Link } from "react-router-dom";
+
 
 const Login = () => {
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
 
-    // const [firstName, setFirstName] = useState("")
-    // const [lastName, setLastName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -19,14 +17,12 @@ const Login = () => {
         axios.post("http://localhost:8080/api/loginUser", {email, password})
             .then((res) => {
                 console.log(res);
-                // console.log("test");
-                // setFirstName("");
-                // setLastName("");
+
                 setEmail("");
                 setPassword("");
 
                 navigate("/dashboard");
-                // setHasBeenSubmitted(!hasBeenSubmitted);
+
                 })
             .catch((err) => {
             console.log("Login Error");
