@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios"
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router';
 
 
 const Dashboard = () => {
+    const navigate = useNavigate();
+
     const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
     const [photos, setPhotos] = useState([])
 
-
+    useEffect(() => {
+        axios.get(`http://localhost:8080/api/userVerif`)
+            .then(res => {
+            console.log(res.data);})
+            .catch(err => {
+            console.log(err.response.data);
+            navigate("/");
+            })
+    }, []);
 
     useEffect(() => {
         axios.get("http://localhost:8080/api/allPhotos")
