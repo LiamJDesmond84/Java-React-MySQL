@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from 'axios';
 
 export const PhotoDetails = () => {
 
     const { id } = useParams();
-    // const navigate = useNavigate();
+
 
     const [photo, setPhoto] = useState({})
 
