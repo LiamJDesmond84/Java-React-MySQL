@@ -17,8 +17,8 @@ body {
 
 .post {
   background-color: salmon;
-  width: 300px;
-  height: 300px;
+  width: 350px;
+  height: 350px;
   border-radius: 10px;
   
   display: flex;
@@ -47,8 +47,13 @@ body {
   color: white;
 }
 
+div.body {
+    flex: 60%;
+}
+
 .post .body {
-  flex: 60%;
+  /* flex: 60%; */
+  height: 20px;
   display: grid;
   place-content: center;
 }
@@ -98,7 +103,7 @@ body {
 
 .button {
   margin-top: 15px;
-  height: 40px;
+  height: 20px;
   border: none;
   background-color: lightskyblue;
   border-radius: 5px;

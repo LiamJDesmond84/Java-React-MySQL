@@ -47,9 +47,9 @@ const Dashboard = () => {
                     <div className="title"> {x.title} </div>
                     <div className="body">{x.description}</div>
 
-                    <img src={`${x.imgURL}`} alt="" style={{width: "200px", height: "150px", marginLeft: "50px"}} />
-                    <Link className="body" to={`/photo/${x.id}`}>Details</Link>
-                    <Link className="body" to={`/photo/edit/${x.id}`}>Edit</Link>
+                    <img src={`${x.imgURL}`} alt="" style={{width: "250px", height: "200px", marginLeft: "50px"}} />
+                    <Link to={`/photo/${x.id}`}><button style={{marginLeft: "50px", height: "15px"}} type="button">Details</button></Link>
+                    <Link to={`/photo/edit/${x.id}`}><button style={{marginLeft: "50px", height: "15px"}} type="button">Edit</button></Link>
                     <button style={{marginLeft: "50px"}} className="body" onClick={(e)=>{deletePost(x.id)}}>Delete</button>
                     </div>
             </div>
