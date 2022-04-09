@@ -43,6 +43,10 @@ public class UserService {
 	
 	// TEST
 	public User simpleCreateUser(User newUser) {
+
+        String hashed = BCrypt.hashpw(newUser.getPassword(), BCrypt.gensalt());
+        newUser.setPassword(hashed);
+
 		return userRepo.save(newUser);
 	}
 	
