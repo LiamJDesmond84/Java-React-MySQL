@@ -8,6 +8,7 @@ const Register = () => {
     const navigate = useNavigate();
     const [errors, setErrors] = useState("");
     const [passError, setPasserror] = useState("");
+    const [emailError, setEmailError] = useState("")
 
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
@@ -36,11 +37,24 @@ const Register = () => {
             console.log("Register Error");
             
             // console.log(err.response.data[0]);
-            console.log(err.response.data.errors[0]);
+
             // console.log(err);
-            console.log("asfasfsadf")
-            setErrors(err.response.data.errors[0])});
+
+
+
+            console.log(err.response.data.errors)
+            if(err.response.data.errors === "undefined") {
+                setErrors("Email already Registered!")
+                console.log("email error")
+
+            }
+            if(err.response.data.errors != null) {
+                setErrors(err.response.data.errors[0])
+                console.log("other errors");
+            }
+
             
+        })
             console.log(errors);
 
             
