@@ -43,8 +43,8 @@ const Register = () => {
 
 
             console.log(err.response.data.errors)
-            if(err.response.data.errors === "undefined") {
-                setErrors("Email already Registered!")
+            if(err.response.data.errors === undefined) {
+                setEmailError("Email already Registered!")
                 console.log("email error")
 
             }
@@ -89,8 +89,8 @@ const Register = () => {
         <fieldset className='float-label-field'>
             <input id="txtName" type="text" name="email" value={email} onChange={(e) => setEmail(e.target.value)}  />
             {
-                errors.field === "email" ?
-                <p>{errors.defaultMessage}</p>
+                emailError ?
+                <p>{emailError}</p>
                 :null
             }
         </fieldset>
