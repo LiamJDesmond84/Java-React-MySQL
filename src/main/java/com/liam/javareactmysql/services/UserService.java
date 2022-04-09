@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -29,6 +31,24 @@ public class UserService {
 		User user = userRepo.findById(id).orElse(null);
 		return user;
 	}
+	
+	
+	public ResponseEntity<User> simpleEmailCheck(User userEmail) {
+		if(userRepo.findByEmail(userEmail.getEmail()).isPresent()) {
+	          return new ResponseEntity<User>(userEmail, HttpStatus.BAD_REQUEST);
+			}
+		return null;
+	}
+	
+	
+	// TEST
+	public User simpleCreateUser(User newUser) {
+		return userRepo.save(newUser);
+	}
+	
+	
+	
+	
 	
 	// Create One (with email verification)
 	public User createUser(User newUser, BindingResult result) {

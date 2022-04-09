@@ -127,19 +127,24 @@ public class MainController {
 	
 	
 	   // Create User Process
-		@ResponseBody
+
 	   @PostMapping("/registerUser")
-	   public ResponseEntity<User> registerUser(@Valid @RequestBody User newUser, BindingResult result) {
+	   public ResponseEntity<User> registerUser(@Valid @RequestBody User newUser) {
 		   
+		ResponseEntity<User> email = userServ.simpleEmailCheck(newUser);
+		
+		if(email != null) {
+			return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+		}
 
-
-	   	User user = userServ.createUser(newUser, result);
-	   	if(result.hasErrors()) {
-	   			System.out.println(result);
-	           return new ResponseEntity<User>(user, HttpStatus.BAD_REQUEST);
-	       }
-
-	   	
+		User user = userServ.simpleCreateUser(newUser);
+//	   	User user = userServ.createUser(newUser, result);
+//	   	if(result.hasErrors()) {
+//	   			System.out.println(result);
+//	           return new ResponseEntity<User>(user, HttpStatus.BAD_REQUEST);
+//	       }
+//
+//	   	
 	   	session.setAttribute("user_id", newUser.getId());
 	   	sesh = (Long) session.getAttribute("user_id");
 	   	System.out.println();

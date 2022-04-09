@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 const Register = () => {
 
     const navigate = useNavigate();
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState("");
     const [passError, setPasserror] = useState("");
 
     const [firstName, setFirstName] = useState("")
@@ -34,12 +34,12 @@ const Register = () => {
                 })
             .catch((err) => {
             console.log("Register Error");
-            setErrors(err.response.data);
+            
             // console.log(err.response.data[0]);
-            console.log(err.response);
+            console.log(err.response.data.errors[0]);
             // console.log(err);
             console.log("asfasfsadf")
-            setErrors("Email Already in use")});
+            setErrors(err.response.data.errors[0])});
             
             console.log(errors);
 
@@ -53,21 +53,21 @@ const Register = () => {
     
     <form onSubmit={registerUser}>
     <h4>Register New User</h4>
-    <label>User Name</label>
+    <label>First Name</label>
     <fieldset className='float-label-field'>
         <input id="txtName" type="text" name="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)}  />
         {
-            errors ?
-            <p>{errors.error}</p>
+            errors.field === "firstName" ?
+            <p>{errors.defaultMessage}</p>
             :null
         }
     </fieldset>
-    <label>User Name</label>
+    <label>Last Name</label>
     <fieldset className='float-label-field'>
         <input id="txtName" type="text" name="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)}  />
         {
-            errors ?
-            <p>{errors.error}</p>
+            errors.field === "lastName" ?
+            <p>{errors.defaultMessage}</p>
             :null
         }
     </fieldset>
@@ -75,8 +75,8 @@ const Register = () => {
         <fieldset className='float-label-field'>
             <input id="txtName" type="text" name="email" value={email} onChange={(e) => setEmail(e.target.value)}  />
             {
-                errors ?
-                <p>{errors.error}</p>
+                errors.field === "email" ?
+                <p>{errors.defaultMessage}</p>
                 :null
             }
         </fieldset>
