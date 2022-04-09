@@ -37,7 +37,7 @@ const Dashboard = () => {
     }
 
     return (
-        <div>
+        <div style={{display: "flex", flexWrap: "wrap"}}>
         {photos.map((x,i) => {
 
             return (

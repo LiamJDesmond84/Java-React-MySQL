@@ -17,7 +17,8 @@ const NewPhoto = () => {
     useEffect(() => {
         axios.get(`http://localhost:8080/api/userVerif`)
             .then(res => {
-            console.log(res.data);})
+            console.log(res.data);
+            })
             .catch(err => {
             console.log(err.response.data);
             navigate("/");
@@ -47,7 +48,7 @@ const NewPhoto = () => {
                 setTitle("");
                 setDescription("");
                 setimgURL("");
-                navigate("/");
+                navigate("/dashboard");
 
                 })
             .catch((err) => {
