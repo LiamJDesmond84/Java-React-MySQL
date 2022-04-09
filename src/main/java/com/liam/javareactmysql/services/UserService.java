@@ -33,6 +33,7 @@ public class UserService {
 	}
 	
 	
+	// Check Email
 	public ResponseEntity<User> simpleEmailCheck(User userEmail) {
 		if(userRepo.findByEmail(userEmail.getEmail()).isPresent()) {
 	          return new ResponseEntity<User>(userEmail, HttpStatus.BAD_REQUEST);
@@ -41,7 +42,7 @@ public class UserService {
 	}
 	
 	
-	// TEST
+	// Hash Password & Save
 	public User simpleCreateUser(User newUser) {
 
         String hashed = BCrypt.hashpw(newUser.getPassword(), BCrypt.gensalt());
@@ -54,7 +55,7 @@ public class UserService {
 	
 	
 	
-	// Create One (with email verification)
+	// Create One (with email verification) - OOO
 	public User createUser(User newUser, BindingResult result) {
 		if(userRepo.findByEmail(newUser.getEmail()).isPresent()) {
           result.rejectValue("email", "Unique", "This email is already in use!");
