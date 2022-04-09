@@ -73,17 +73,11 @@ public class MainController {
 	// Create One
 	@PostMapping("/createPhoto")
 	public ResponseEntity<Photo> create(@Valid @RequestBody Photo photo) {
-//		Long test = (Long) session.getAttribute("user_id");
-
-//		System.out.println(session.getAttribute("user_id"));
 		
-//		if (session.getAttribute("user_id") == null) {
-//			System.out.println("User NOT in Session");
-//		}
-//		
-//		// Prints "User NOT in Session"
-//		Long userId = (Long) session.getAttribute("user_id");
-//		System.out.println(userId);
+		
+		// Session resetting after each API request
+		// Had to make a workaround instead
+		
 		photo.setOwner(userServ.getUser(sesh));
 		Photo newPhoto = photoServ.createOne(photo);
 	    
@@ -131,45 +125,36 @@ public class MainController {
 	   @PostMapping("/registerUser")
 	   public ResponseEntity<User> registerUser(@Valid @RequestBody User newUser) {
 		   
-		ResponseEntity<User> email = userServ.simpleEmailCheck(newUser);
-		
-		if(email != null) {
-			return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
-		}
-
-		User user = userServ.simpleCreateUser(newUser);
-//	   	User user = userServ.createUser(newUser, result);
-//	   	if(result.hasErrors()) {
-//	   			System.out.println(result);
-//	           return new ResponseEntity<User>(user, HttpStatus.BAD_REQUEST);
-//	       }
-//
-//	   	
-	   	session.setAttribute("user_id", newUser.getId());
-	   	sesh = (Long) session.getAttribute("user_id");
-	   	System.out.println();
-	    return new ResponseEntity<User>(user, HttpStatus.OK);
+			ResponseEntity<User> email = userServ.simpleEmailCheck(newUser);
+			
+			if(email != null) {
+				return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+			}
+	
+			User user = userServ.simpleCreateUser(newUser);
+	
+		   	session.setAttribute("user_id", newUser.getId());
+		   	sesh = (Long) session.getAttribute("user_id");
+	
+		    return new ResponseEntity<User>(user, HttpStatus.OK);
 	   }
 	
 	   // Login User Process
 	   @PostMapping("/loginUser")
 	   public ResponseEntity<String> loginUser(@Valid @RequestBody LoginUser newLogin, BindingResult result) {
-	    User user = userServ.login(newLogin, result);
-	   	if(result.hasErrors()) {
-	           return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid Email or Password");
-	       }
-
-	   	session.setAttribute("user_id", user.getId());
-	   	sesh = (Long) session.getAttribute("user_id");
-	   	System.out.println("login");
-	    System.out.println(user.getId());
-	   	System.out.println(sesh);
-//		System.out.println(session.getAttribute("user_id"));
-
-		// User still in session
-
-
-	    return ResponseEntity.status(HttpStatus.OK).body("Okay!");
+		    User user = userServ.login(newLogin, result);
+		    
+		   	if(result.hasErrors()) {
+		           return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid Email or Password");
+		    }
+	
+		   	session.setAttribute("user_id", user.getId());
+		   	sesh = (Long) session.getAttribute("user_id");
+		   	System.out.println("login");
+		    System.out.println(user.getId());
+		   	System.out.println(sesh);
+	
+		    return ResponseEntity.status(HttpStatus.OK).body("Okay!");
 	   }
 
 	   
