@@ -158,30 +158,6 @@ public class MainController {
 	   }
 
 	   
-	   // Old Way //
-	   
-//	   // Login User Process
-//	   @PostMapping("/loginUser")
-//	   public ResponseEntity<User> loginUser(@Valid @RequestBody LoginUser newLogin, BindingResult result) {
-//	    User user = userServ.login(newLogin, result);
-//	   	if(result.hasErrors()) {
-//	           return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
-//	       }
-//	    System.out.println(user.getId());
-//	    // prints out 3
-//
-//	   	session.setAttribute("user_id", user.getId());
-//	   	sesh = (Long) session.getAttribute("user_id");
-//	   	System.out.println("login");
-//	   	System.out.println(sesh);
-////		System.out.println(session.getAttribute("user_id"));
-//
-//		// User still in session
-//
-//
-//	    return new ResponseEntity<User>(user, HttpStatus.OK);
-//	   }
-	   
 	   // Verify sesh
 	   @GetMapping("/userVerif")
 	   public ResponseEntity<String> showUser() {
