@@ -58,6 +58,24 @@ div.body {
   place-content: center;
 }
 
+.delete {
+  color: white;
+  background-color: red;
+  display: grid;
+  place-content: center;
+
+}
+
+.link1 {
+  color: white;
+  background-color: green;
+}
+
+.link2 {
+  color: black;
+  background-color: yellow;
+}
+
 .post .footer {
   flex: 20%;
   border-top: 1px solid lightgray;
