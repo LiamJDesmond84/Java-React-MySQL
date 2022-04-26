@@ -44,9 +44,7 @@ public class MainController {
 	private HttpSession session;
 	
 
-
 	Long sesh;
-
 
 	
 	// Get All
@@ -69,7 +67,6 @@ public class MainController {
 	}
 	
 
-	
 	// Create One
 	@PostMapping("/createPhoto")
 	public ResponseEntity<Photo> create(@Valid @RequestBody Photo photo) {
@@ -102,11 +99,6 @@ public class MainController {
 	}
 	
 
-		
-	
-
-	
-	
 	
 //	 ____ ___                    
 //	|    |   \______ ___________ 
