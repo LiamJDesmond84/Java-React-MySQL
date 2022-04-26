@@ -37,7 +37,7 @@ public class UserService {
 	public ResponseEntity<User> simpleEmailCheck(User userEmail) {
 		if(userRepo.findByEmail(userEmail.getEmail()).isPresent()) {
 	          return new ResponseEntity<User>(userEmail, HttpStatus.BAD_REQUEST);
-			}
+		}
 		return null;
 	}
 	
@@ -52,10 +52,39 @@ public class UserService {
 	}
 	
 	
+    
+	// Login
+    	public User login(LoginUser newLogin, BindingResult result) {
+        	if(result.hasErrors()) {
+            		return null;
+        	}
+        	Optional<User> potentialUser = userRepo.findByEmail(newLogin.getEmail());
+        	if(!potentialUser.isPresent()) {
+			result.rejectValue("email", "Unique", "Unknown email!");
+			return null;
+        	}
+        	User user = potentialUser.get();
+        	if(!BCrypt.checkpw(newLogin.getPassword(), user.getPassword())) {
+			result.rejectValue("password", "Matches", "Invalid Password!");
+        	}
+        	if(result.hasErrors()) {
+			return null;
+        	}else {
+            		return user;
+        	}
+    	}
+    
+	// Update
+	public User updateOne(User user) {
+		return userRepo.save(user);
+	}
 	
+	// Delete
+	public void deleteOne(Long id) {
+		userRepo.deleteById(id);
+	}
 	
-	
-//	// Create One (with email verification) - OOO
+	//	// Create One (with email verification) - OOO
 //	public User createUser(User newUser, BindingResult result) {
 //		if(userRepo.findByEmail(newUser.getEmail()).isPresent()) {
 //          result.rejectValue("email", "Unique", "This email is already in use!");
@@ -68,37 +97,5 @@ public class UserService {
 //          return userRepo.save(newUser);
 //      }
 //	}
-	
-    
-	// Login
-    public User login(LoginUser newLogin, BindingResult result) {
-        if(result.hasErrors()) {
-            return null;
-        }
-        Optional<User> potentialUser = userRepo.findByEmail(newLogin.getEmail());
-        if(!potentialUser.isPresent()) {
-            result.rejectValue("email", "Unique", "Unknown email!");
-            return null;
-        }
-        User user = potentialUser.get();
-        if(!BCrypt.checkpw(newLogin.getPassword(), user.getPassword())) {
-            result.rejectValue("password", "Matches", "Invalid Password!");
-        }
-        if(result.hasErrors()) {
-            return null;
-        } else {
-            return user;
-        }
-    }
-    
-	// Update
-	public User updateOne(User user) {
-		return userRepo.save(user);
-	}
-	
-	// Delete
-	public void deleteOne(Long id) {
-		userRepo.deleteById(id);
-	}
 
 }
